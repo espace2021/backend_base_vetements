@@ -18,18 +18,16 @@ app.use(express.json());
 
 // Connexion à la base données
 mongoose.set('strictQuery', true)
-const connect = async () => {
-    try {
-      await mongoose.connect(process.env.DATABASECLOUD);
-      console.log("Connected to mongoDB.");
-    } catch (error) {
-      throw error;
-    }
-  };
-  
-  mongoose.connection.on("disconnected", () => {
-    console.log("mongoDB disconnected!");
-  });
+// Connexion à la base données
+mongoose.connect(process.env.DATABASECLOUD,{
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+  })
+  .then(() => {console.log("MongoDB connected to the database");
+ }).catch(err => {
+  console.log('Could not connect to the database. Exiting now...', err);
+  process.exit();
+ });
 
 app.get("/",(req,res)=>{
 res.send("bonjour");
@@ -40,6 +38,6 @@ app.use('/api/scategories', scategorieRouter);
 app.use('/api/articles', articleRouter);
 
 app.listen(process.env.PORT, () => {
-    connect();
+ 
  console.log(`Server is listening on port ${process.env.PORT}`); });
 module.exports = app;
