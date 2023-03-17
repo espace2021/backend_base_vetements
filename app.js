@@ -6,6 +6,7 @@ const typeRouter =require("./routes/type.route")
 const categorieRouter =require("./routes/categorie.route")
 const scategorieRouter =require("./routes/scategorie.route")
 const articleRouter =require("./routes/article.route")
+const userRouter =require( "./routes/user.route.js")
 
 dotenv.config()
 const app = express();
@@ -36,6 +37,7 @@ app.use('/api/types', typeRouter);
 app.use('/api/categories', categorieRouter);
 app.use('/api/scategories', scategorieRouter);
 app.use('/api/articles', articleRouter);
+app.use('/api/users', userRouter);
 
 app.listen(process.env.PORT, () => {
  
