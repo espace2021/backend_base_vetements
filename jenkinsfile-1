@@ -1,9 +1,23 @@
 pipeline {
-    agent { docker { image 'node:16.17.1-alpine' } }
+    agent any
+
     stages {
-        stage('build') {
+        stage('Clone sources') {
             steps {
-                sh 'node --version'
+                git url: 'https://github.com/espace2021/backend_base_vetements.git'
+            }
+        }
+
+        stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh "./gradlew sonarqube"
+                }
+            }
+        }
+        stage("Quality gate") {
+            steps {
+                waitForQualityGate abortPipeline: true
             }
         }
     }
