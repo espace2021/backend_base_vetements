@@ -9,7 +9,7 @@
   stages {
     stage('Preparation') {
       steps {
-        sh 'git remote add prod https://github.com/espace2021/backend_base_vetements || true'
+        sh 'git remote add prod https://github.com/espace2021/backend_base_vetements.git || true'
       }
     }
 
@@ -29,5 +29,5 @@
         }
       }
     }
- 
+ }
 }
