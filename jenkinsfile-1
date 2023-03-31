@@ -1,33 +1,4 @@
- pipeline {
-  agent {
-    node {
-      label 'nodejs'
-    }
-
-  }
-
-  stages {
-    stage('Preparation') {
-      steps {
-        sh 'git remote add prod https://github.com/espace2021/backend_base_vetements.git || true'
-      }
-    }
-
-    stage('Dependencies') {
-      steps {
-        sh 'npm install --force'
-      }
-    }
-
-    stage('Code Analysis') {
-      steps {
-        script {
-          def scannerHome = tool 'sonarqube';
-              withSonarQubeEnv("sonarqube") {
-              sh "${tool("sonarqube")}/bin/sonar-scanner"
-              }
-        }
-      }
-    }
- }
-}
+ sonar.projectKey=java-sonar-runner-simple
+sonar.projectName= project 
+sonar.sourceEncoding=UTF-8
+sonar.sources=.
